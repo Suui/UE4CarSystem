@@ -21,6 +21,14 @@
 Content/StarterContent/*
 Binaries/*
 
+Intermediate/*
+!Intermediate/ProjectFiles/
+
+Intermediate/ProjectFiles/*
+!Intermediate/ProjectFiles/*.vcxproj
+!Intermediate/ProjectFiles/*.vcxproj.filters
+
+
 
 ### Unreal Tournament gitignore ###
 
