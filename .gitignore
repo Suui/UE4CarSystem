@@ -41,7 +41,7 @@ Intermediate/ProjectFiles/*
 /DerivedDataCache/**
 
 # Engine intermediates
-/Intermediate/**
+# /Intermediate/** Suui commented
 /Plugins/**/Intermediate/**
 
 # Ignore any saved local files
@@ -53,7 +53,7 @@ Intermediate/ProjectFiles/*
 ### Unreal Engine gitignore ###
 
 # Ignore project files in the root
-/*.sln
+# /*.sln Suui Commented
 *.suo
 *.opensdf
 *.sdf

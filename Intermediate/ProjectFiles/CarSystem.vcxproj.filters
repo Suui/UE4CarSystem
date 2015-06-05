@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\CarSystem.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{9C52EC69-DD5F-468E-B26A-FE50A2BB7CD0}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\CarSystem.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\CarSystemEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{12DDAF6E-8F28-4EFE-9382-E3435FAECFFD}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\CarSystem">
+      <UniqueIdentifier>{1B15FA9A-C9EF-48A4-9A59-C3C8D7A6D8BD}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\CarSystem\CarSystem.Build.cs">
+      <Filter>Source\CarSystem</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\CarSystem\CarSystem.cpp">
+      <Filter>Source\CarSystem</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CarSystem\CarSystem.h">
+      <Filter>Source\CarSystem</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\CarSystem\CarSystemGameMode.cpp">
+      <Filter>Source\CarSystem</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CarSystem\CarSystemGameMode.h">
+      <Filter>Source\CarSystem</Filter>
+    </ClInclude>
+    <Filter Include="Source\CarSystem\Resources">
+      <UniqueIdentifier>{915163E7-78C0-4DB3-9611-93DF3175D684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CarSystem\Resources\Windows">
+      <UniqueIdentifier>{3D8EE8FB-79B0-4246-8A03-6AD1D39DFE03}</UniqueIdentifier>
+    </Filter>
+    <ResourceCompile Include="..\..\Source\CarSystem\Resources\Windows\CarSystem.rc">
+      <Filter>Source\CarSystem\Resources\Windows</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\CarSystem\Car">
+      <UniqueIdentifier>{7e00b379-beab-42e5-a389-7fde2b34cb44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\CarSystem\CarGM.h">
+      <Filter>Source\CarSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CarSystem\Car\Car.h">
+      <Filter>Source\CarSystem\Car</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\CarSystem\CarGM.cpp">
+      <Filter>Source\CarSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CarSystem\Car\Car.cpp">
+      <Filter>Source\CarSystem\Car</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
