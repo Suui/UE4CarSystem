@@ -14,6 +14,7 @@ ACar::ACar()
 	FrontSensor->AttachTo(RootComponent);
 }
 
+
 // Called when the game starts or when spawned
 void ACar::BeginPlay()
 {
@@ -21,30 +22,36 @@ void ACar::BeginPlay()
 	
 }
 
+
 // Called every frame
 void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionParams;
 	auto Ignored = TArray<UPrimitiveComponent*>();
 	Ignored.Add(FrontSensor);
 	CollisionParams.AddIgnoredComponents(Ignored);
+	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
 	
-	DrawDebugLine(GetWorld(), FrontSensor->GetComponentLocation() + FVector::ForwardVector * 210.f, FrontSensor->GetComponentLocation() + FVector::ForwardVector * (MAX_DIST + 210.f), FColor::Green, false, .2f);
-	
-	if (GetWorld()->LineTraceSingle(HitResult, FrontSensor->GetComponentLocation() + FVector::ForwardVector * 210.f, FrontSensor->GetComponentLocation() + FVector::ForwardVector * (MAX_DIST + 210.f), ECC_Visibility, CollisionParams))
-	{
-		float Ratio = (HitResult.Location.X - FrontSensor->GetComponentLocation().X + 210.f) / (MAX_DIST - MIN_DIST);
-		if (GEngine) GEngine->AddOnScreenDebugMessage(0, .2f, FColor::Green, FString::SanitizeFloat(Ratio));
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f), FColor::Green, false, .2f);
 
-		AddMovementInput(FVector::ForwardVector, Ratio * MAX_SPEED * DeltaTime);
+	if (GetWorld()->LineTraceSingle(HitResult, FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f), ECC_Visibility, CollisionParams))
+	{
+		float DistanceDiff = HitResult.Location.X - FrontSensorLocation.X;
+		float Ratio = (DistanceDiff - MIN_DIST) / (MAX_DIST - MIN_DIST - TOLERANCE);
+		if (Ratio < 0.05f) Ratio = 0.05f;
+		if (DistanceDiff <= MIN_DIST) return;
+
+		AddMovementInput(GetActorForwardVector(), Ratio * MAX_SPEED * DeltaTime);
 		return;
 	}
 	
-	AddMovementInput(FVector(1.f, 0.f, 0.f), MAX_SPEED * DeltaTime);
+	AddMovementInput(GetActorForwardVector(), MAX_SPEED * DeltaTime);
 
 }
+
 
 // Called to bind functionality to input
 void ACar::SetupPlayerInputComponent(class UInputComponent* InputComponent)

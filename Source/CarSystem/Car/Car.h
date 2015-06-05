@@ -10,9 +10,10 @@ class CARSYSTEM_API ACar : public ACharacter
 {
 	GENERATED_BODY()
 
-	const float MAX_SPEED = 50.f;
-	const float MAX_DIST = 1000.f;
+	const float MAX_SPEED = 80.f;
+	const float MAX_DIST = 2500.f;
 	const float MIN_DIST = 500.f;
+	const float TOLERANCE = 200.f;
 
 public:
 
