@@ -28,18 +28,41 @@ void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FHitResult HitResult;
+	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
+
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorRightVector(), FColor::Cyan, false);
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * -GetActorRightVector(), FColor::Cyan, false);
+	
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorForwardVector(), FColor::Green, false);
+
+
+	FHitResult RightResult;
+	FHitResult LeftResult;
+
 	FCollisionQueryParams CollisionParams;
 	auto Ignored = TArray<UPrimitiveComponent*>();
 	Ignored.Add(FrontSensor);
 	CollisionParams.AddIgnoredComponents(Ignored);
-	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
-	
-	//DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, MAX_DIST, MAX_DIST) * GetActorForwardVector(), FColor::Green, false, .2f);
 
-	if (GetWorld()->LineTraceSingle(HitResult, FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, MAX_DIST, MAX_DIST) * GetActorForwardVector(), ECC_Visibility, CollisionParams))
+
+	GetWorld()->LineTraceSingle(RightResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorRightVector(), ECC_Visibility, CollisionParams);
+	GetWorld()->LineTraceSingle(LeftResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * -GetActorRightVector(), ECC_Visibility, CollisionParams);
+
+	float SidesDistanceDiff = (RightResult.Location - FrontSensorLocation).Size() - (LeftResult.Location - FrontSensorLocation).Size();
+	if (GEngine) GEngine->AddOnScreenDebugMessage(0, .5f, FColor::Blue, FString::SanitizeFloat(SidesDistanceDiff));
+	// TODO: Save last state. If decreasing distances, center yourself!
+
+	if (SidesDistanceDiff > 0.f)	// More space on the right side, turn right!
+		AddControllerYawInput(SidesDistanceDiff * DeltaTime);
+	else if (SidesDistanceDiff < 0.f)
+		AddControllerYawInput(SidesDistanceDiff * DeltaTime);
+
+	FHitResult FrontResult;
+
+
+	if (GetWorld()->LineTraceSingle(FrontResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorForwardVector(), ECC_Visibility, CollisionParams))
 	{
-		float DistanceDiff = (HitResult.Location - FrontSensorLocation).Size();
+		float DistanceDiff = (FrontResult.Location - FrontSensorLocation).Size();
 		float Ratio = (DistanceDiff - MIN_DIST) / (MAX_DIST - MIN_DIST - TOLERANCE);
 		if (Ratio < 0.05f) Ratio = 0.05f;
 		if (DistanceDiff< MIN_DIST) return;

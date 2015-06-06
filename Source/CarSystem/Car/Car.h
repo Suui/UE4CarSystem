@@ -15,6 +15,8 @@ class CARSYSTEM_API ACar : public ACharacter
 	const float MIN_DIST = 500.f;
 	const float TOLERANCE = 200.f;
 
+	const FVector MAX_DIST_VECTOR = FVector(MAX_DIST, MAX_DIST, MAX_DIST);
+
 public:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = CarProperties)
