@@ -35,7 +35,7 @@ void ACar::Tick(float DeltaTime)
 	CollisionParams.AddIgnoredComponents(Ignored);
 	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
 	
-	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, MAX_DIST, MAX_DIST) * GetActorForwardVector(), FColor::Green, false, .2f);
+	//DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, MAX_DIST, MAX_DIST) * GetActorForwardVector(), FColor::Green, false, .2f);
 
 	if (GetWorld()->LineTraceSingle(HitResult, FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, MAX_DIST, MAX_DIST) * GetActorForwardVector(), ECC_Visibility, CollisionParams))
 	{
@@ -49,7 +49,6 @@ void ACar::Tick(float DeltaTime)
 	}
 	
 	AddMovementInput(GetActorForwardVector(), MAX_SPEED * DeltaTime);
-
 }
 
 
