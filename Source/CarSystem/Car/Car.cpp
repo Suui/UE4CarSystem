@@ -35,11 +35,11 @@ void ACar::Tick(float DeltaTime)
 	CollisionParams.AddIgnoredComponents(Ignored);
 	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
 	
-	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f), FColor::Green, false, .2f);
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f) * GetActorForwardVector(), FColor::Green, false, .2f);
 
-	if (GetWorld()->LineTraceSingle(HitResult, FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f), ECC_Visibility, CollisionParams))
+	if (GetWorld()->LineTraceSingle(HitResult, FrontSensorLocation, FrontSensorLocation + FVector(MAX_DIST, 0.f, 0.f) * GetActorForwardVector(), ECC_Visibility, CollisionParams))
 	{
-		float DistanceDiff = HitResult.Location.X - FrontSensorLocation.X;
+		float DistanceDiff = FMath::Abs(HitResult.Location.X - FrontSensorLocation.X);
 		float Ratio = (DistanceDiff - MIN_DIST) / (MAX_DIST - MIN_DIST - TOLERANCE);
 		if (Ratio < 0.05f) Ratio = 0.05f;
 		if (DistanceDiff <= MIN_DIST) return;
