@@ -22,6 +22,9 @@ public:
 	USceneComponent* Root;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HoverProperties)
+	UBoxComponent* PhysicsBody;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HoverProperties)
 	UStaticMeshComponent* HoverMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HoverProperties)

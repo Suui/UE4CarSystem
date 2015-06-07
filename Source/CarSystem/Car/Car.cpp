@@ -80,7 +80,7 @@ void ACar::Tick(float DeltaTime)
 		float DistanceDiff = (FrontResult.Location - FrontSensorLocation).Size();
 		float Ratio = (DistanceDiff - MIN_DIST) / (MAX_DIST - MIN_DIST - TOLERANCE);
 		if (Ratio < 0.05f) Ratio = 0.05f;
-		if (DistanceDiff< MIN_DIST) return;
+		if (DistanceDiff < MIN_DIST) return;
 
 		AddMovementInput(GetActorForwardVector(), Ratio * MAX_SPEED * DeltaTime);
 		return;
