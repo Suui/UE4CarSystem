@@ -12,6 +12,10 @@ ACar::ACar()
 
 	FrontSensor = CreateDefaultSubobject<UStaticMeshComponent>("Front Sensor");
 	FrontSensor->AttachTo(RootComponent);
+	
+	SidesDistances = TArray<float>();
+	for (int i = 0; i < 10; ++i)
+		SidesDistances.Add(0.f);
 }
 
 
@@ -28,6 +32,7 @@ void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	TimePassed += DeltaTime;
 	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
 
 	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorRightVector(), FColor::Cyan, false);
@@ -49,13 +54,23 @@ void ACar::Tick(float DeltaTime)
 	GetWorld()->LineTraceSingle(LeftResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * -GetActorRightVector(), ECC_Visibility, CollisionParams);
 
 	float SidesDistanceDiff = (RightResult.Location - FrontSensorLocation).Size() - (LeftResult.Location - FrontSensorLocation).Size();
-	if (GEngine) GEngine->AddOnScreenDebugMessage(0, .5f, FColor::Blue, FString::SanitizeFloat(SidesDistanceDiff));
 	// TODO: Save last state. If decreasing distances, center yourself!
+	AdjustSidesDistancesValues(SidesDistanceDiff);
 
-	if (SidesDistanceDiff > 0.f)	// More space on the right side, turn right!
-		AddControllerYawInput(SidesDistanceDiff * DeltaTime);
-	else if (SidesDistanceDiff < 0.f)
-		AddControllerYawInput(SidesDistanceDiff * DeltaTime);
+//	if (GEngine) GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Cyan, "Median: " + FString::SanitizeFloat(SidesDistanceDiff * 0.1f * DeltaTime));
+//	AddControllerYawInput(SidesDistanceDiff * 0.1f * DeltaTime);
+
+	float median = 0.f;
+	for (int i = 0; i < 10; ++i)
+		median += SidesDistances[i];
+	median /= 10;
+
+	float angle = median * 0.02f * DeltaTime;
+
+	if (GEngine) GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Cyan, "Median: " + FString::SanitizeFloat(median) + ", Angle = " + FString::SanitizeFloat(angle));
+	AddControllerYawInput(angle);
+
+
 
 	FHitResult FrontResult;
 
@@ -72,6 +87,14 @@ void ACar::Tick(float DeltaTime)
 	}
 	
 	AddMovementInput(GetActorForwardVector(), MAX_SPEED * DeltaTime);
+}
+
+
+void ACar::AdjustSidesDistancesValues(float SidesDistanceDiff)
+{
+	for (int i = 0; i < 9; ++i)
+		SidesDistances[i] = SidesDistances[i + 1];
+	SidesDistances[9] = SidesDistanceDiff;
 }
 
 

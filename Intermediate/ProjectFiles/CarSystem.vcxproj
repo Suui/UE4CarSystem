@@ -45,8 +45,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\CarSystem\CarGM.cpp" />
     <ClCompile Include="..\..\Source\CarSystem\Car\Car.cpp" />
+    <ClCompile Include="..\..\Source\CarSystem\Hover\Hover.cpp" />
     <ClInclude Include="..\..\Source\CarSystem\CarGM.h" />
     <ClInclude Include="..\..\Source\CarSystem\Car\Car.h" />
+    <ClInclude Include="..\..\Source\CarSystem\Hover\Hover.h" />
     <None Include="..\..\CarSystem.uproject" />
     <None Include="..\..\Source\CarSystem.Target.cs" />
     <None Include="..\..\Source\CarSystemEditor.Target.cs" />

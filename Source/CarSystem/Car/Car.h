@@ -17,6 +17,11 @@ class CARSYSTEM_API ACar : public ACharacter
 
 	const FVector MAX_DIST_VECTOR = FVector(MAX_DIST, MAX_DIST, MAX_DIST);
 
+	float TimePassed = 0.f;
+	TArray<float> SidesDistances;
+
+	void AdjustSidesDistancesValues(float SidesDistanceDiff);
+
 public:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = CarProperties)
@@ -27,7 +32,7 @@ public:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
 

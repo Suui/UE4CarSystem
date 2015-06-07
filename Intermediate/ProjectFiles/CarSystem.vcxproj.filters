@@ -52,6 +52,9 @@
     <Filter Include="Source\CarSystem\Car">
       <UniqueIdentifier>{7e00b379-beab-42e5-a389-7fde2b34cb44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\CarSystem\Hover">
+      <UniqueIdentifier>{e850611f-20a1-418f-b96a-32394df31dcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\CarSystem\CarGM.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="..\..\Source\CarSystem\Car\Car.h">
       <Filter>Source\CarSystem\Car</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\CarSystem\Hover\Hover.h">
+      <Filter>Source\CarSystem\Hover</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CarSystem\CarGM.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\CarSystem\Car\Car.cpp">
       <Filter>Source\CarSystem\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CarSystem\Hover\Hover.cpp">
+      <Filter>Source\CarSystem\Hover</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
