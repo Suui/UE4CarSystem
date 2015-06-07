@@ -35,12 +35,11 @@ void ACar::Tick(float DeltaTime)
 	TimePassed += DeltaTime;
 	FVector FrontSensorLocation = FrontSensor->GetComponentLocation();
 
+	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorForwardVector(), FColor::Green, false);
 	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorRightVector(), FColor::Cyan, false);
 	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * -GetActorRightVector(), FColor::Cyan, false);
-	
-	DrawDebugLine(GetWorld(), FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorForwardVector(), FColor::Green, false);
 
-
+	// FOLLOW ROAD
 	FHitResult RightResult;
 	FHitResult LeftResult;
 
@@ -48,7 +47,6 @@ void ACar::Tick(float DeltaTime)
 	auto Ignored = TArray<UPrimitiveComponent*>();
 	Ignored.Add(FrontSensor);
 	CollisionParams.AddIgnoredComponents(Ignored);
-
 
 	GetWorld()->LineTraceSingle(RightResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorRightVector(), ECC_Visibility, CollisionParams);
 	GetWorld()->LineTraceSingle(LeftResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * -GetActorRightVector(), ECC_Visibility, CollisionParams);
@@ -71,9 +69,8 @@ void ACar::Tick(float DeltaTime)
 	AddControllerYawInput(angle);
 
 
-
+	// REDUCE SPEED BEFORE OBSTACLES
 	FHitResult FrontResult;
-
 
 	if (GetWorld()->LineTraceSingle(FrontResult, FrontSensorLocation, FrontSensorLocation + MAX_DIST_VECTOR * GetActorForwardVector(), ECC_Visibility, CollisionParams))
 	{

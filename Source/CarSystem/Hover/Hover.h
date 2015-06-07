@@ -10,6 +10,8 @@ class CARSYSTEM_API AHover : public APawn
 {
 	GENERATED_BODY()
 
+	float LastDisplacement = 0.f;
+
 public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HoverProperties)
