@@ -73,22 +73,23 @@ void AHover::Tick( float DeltaTime )
 		float HitLength = (FrontPowerLocation + AltitudeVector - HitResult.Location).Size();
 		CompensationRatio = HitLength / FullLength;
 		if (GEngine) GEngine->AddOnScreenDebugMessage(0, 10.f, FColor::Green, FString::SanitizeFloat(FullLength) + ", " + FString::SanitizeFloat(HitLength) + ", " + FString::SanitizeFloat(CompensationRatio));
-		PhysicsBody->AddImpulseAtLocation(FVector(0.f, 0.f, 100.f * CompensationRatio * DeltaTime * 100.f), FrontPowerLocation);
+		PhysicsBody->AddImpulseAtLocation(100.f * CompensationRatio * DeltaTime * 100.f * HitResult.Normal, FrontPowerLocation);
 	}
 
 	if (GetWorld()->LineTraceSingle(HitResult, BackLeftPowerLocation, BackLeftPowerLocation + AltitudeVector, ECC_Visibility, CollisionParams))
 	{
 		float HitLength = (BackLeftPowerLocation + AltitudeVector - HitResult.Location).Size();
 		CompensationRatio = HitLength / FullLength;
-		PhysicsBody->AddImpulseAtLocation(FVector(0.f, 0.f, 50.f * CompensationRatio * DeltaTime * 100.f), BackLeftPowerLocation);
+		PhysicsBody->AddImpulseAtLocation(50.f * CompensationRatio * DeltaTime * 100.f * HitResult.Normal, BackLeftPowerLocation);
 	}
 
 	if (GetWorld()->LineTraceSingle(HitResult, BackRightPowerLocation, BackRightPowerLocation + AltitudeVector, ECC_Visibility, CollisionParams))
 	{
 		float HitLength = (BackRightPowerLocation + AltitudeVector - HitResult.Location).Size();
 		CompensationRatio = HitLength / FullLength;
-		PhysicsBody->AddImpulseAtLocation(FVector(0.f, 0.f, 50.f * CompensationRatio * DeltaTime * 100.f), BackRightPowerLocation);
+		PhysicsBody->AddImpulseAtLocation(50.f * CompensationRatio * DeltaTime * 100.f * HitResult.Normal, BackRightPowerLocation);
 	}
+	PhysicsBody->SetLinearDamping(1.0f);
 }
 
 
