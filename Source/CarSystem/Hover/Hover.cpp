@@ -89,7 +89,7 @@ void AHover::Tick( float DeltaTime )
 		CompensationRatio = HitLength / FullLength;
 		PhysicsBody->AddImpulseAtLocation(50.f * CompensationRatio * DeltaTime * 100.f * HitResult.Normal, BackRightPowerLocation);
 	}
-	PhysicsBody->SetLinearDamping(1.0f);
+	PhysicsBody->SetLinearDamping(.3f);
 }
 
 

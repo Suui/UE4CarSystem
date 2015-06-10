@@ -14,7 +14,7 @@ ACar::ACar()
 	FrontSensor->AttachTo(RootComponent);
 	
 	SidesDistances = TArray<float>();
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 5; ++i)
 		SidesDistances.Add(0.f);
 }
 
@@ -59,9 +59,9 @@ void ACar::Tick(float DeltaTime)
 //	AddControllerYawInput(SidesDistanceDiff * 0.1f * DeltaTime);
 
 	float median = 0.f;
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 5; ++i)
 		median += SidesDistances[i];
-	median /= 10;
+	median /= 5;
 
 	float angle = median * 0.02f * DeltaTime;
 
@@ -89,9 +89,9 @@ void ACar::Tick(float DeltaTime)
 
 void ACar::AdjustSidesDistancesValues(float SidesDistanceDiff)
 {
-	for (int i = 0; i < 9; ++i)
+	for (int i = 0; i < 4; ++i)
 		SidesDistances[i] = SidesDistances[i + 1];
-	SidesDistances[9] = SidesDistanceDiff;
+	SidesDistances[4] = SidesDistanceDiff;
 }
 
 
